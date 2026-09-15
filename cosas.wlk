@@ -94,8 +94,9 @@ object contenedorPortuario {
     const contenedor = []
     method peso() = 100 + contenedor.sum({c => c.peso()})
 
-    method peligrosidad() = if (contenedor) contenedor.sum({c => c.esPeligrosa()}) else 0
+    method peligrosidad() = if (contenedor.isEmpty()) 0 else self.elementoMasPeligroso().peligrosidad()
 
+    method elementoMasPeligroso() = contenedor.max({c => c.peligrosidad()})
     method sufrirCambios(){
         //???
     }
