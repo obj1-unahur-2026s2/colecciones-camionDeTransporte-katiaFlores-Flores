@@ -8,7 +8,7 @@ object camion {
 
     method pesoTotal() = self.pesoDeCosas() + self.capacidadDeCarga()
 
-    method sonCosasPares() = cosas.all({c => c.peso() % 2 == 0})
+    method sonCosasPares() = cosas.all({c => c.peso() % 2 == 0}) 
 
     method algunaCosaPesa_(peso) = cosas.any({c => c.peso() == peso})
 
@@ -20,7 +20,7 @@ object camion {
     
     method camionExcedeCapacidad() = self.pesoTotal() > 2500
 
-    method puedeCircularEnRuta(nivel) = self.camionExcedeCapacidad() and cosas.all({ c => c.peligrosidad() <= nivel })
+    method puedeCircularEnRuta(nivel) = not self.camionExcedeCapacidad() and not cosas.any({ c => c.peligrosidad() <= nivel })
 
     method cosaQuePeseEntre_y_(minimo, maximo) = cosas.any({c => c.peso().between(minimo, maximo)})
 
