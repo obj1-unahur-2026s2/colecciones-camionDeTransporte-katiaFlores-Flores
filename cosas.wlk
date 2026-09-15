@@ -7,6 +7,10 @@ object knightRider {
     method peso() = 500
 
     method peligrosidad() = 10
+
+    method sufrirCambios(){
+
+    }
 }
 
 object bumblebee {
@@ -22,10 +26,13 @@ object bumblebee {
 
 
     method transformarEn_(algo){
-        esPeligrosa = algo
+        peligrosidad = algo
 
     }
 
+    method sufrirCambios(){
+        self.transformarEn_(self.robot())
+    }
 
 }
 
@@ -40,10 +47,14 @@ object paqueteDeLadrillos {
         peso = nuevoPeso * 2
     }
 
+    method sufrirCambios(){
+        peso = peso + 12
+    }
+
 }
 
 object arenaAGranel {
-    var peso = 10
+    var peso = 30
     method peso() = peso
 
     method peligrosidad() = 1
@@ -51,11 +62,15 @@ object arenaAGranel {
     method cambiarPeso_(nuevoPeso){
         peso = nuevoPeso
     }
+
+    method sufrirCambios(){
+        peso -=  10
+    }
 }
 
 
 object bateriaAntiaerea {
-    var peso = self.misiles()
+    var peso = self.otraCaso()
 
     method peso() = peso
 
@@ -64,8 +79,12 @@ object bateriaAntiaerea {
     method misiles() = 300
     method otraCaso() = 200
 
-    method cambiarPeso_(nuevoPeso){
+    method cargar_(nuevoPeso){
         peso = nuevoPeso
+    }
+
+    method sufrirCambios(){
+        self.cargar_(self.misiles())
     }
 
 }
@@ -76,6 +95,10 @@ object contenedorPortuario {
     method peso() = 100 + contenedor.sum({c => c.peso()})
 
     method peligrosidad() = if (contenedor) contenedor.sum({c => c.esPeligrosa()}) else 0
+
+    method sufrirCambios(){
+        //???
+    }
 }
 
 object residuosRadiactivos {
@@ -92,6 +115,10 @@ object residuosRadiactivos {
     method cambiarPeligrosidad_(nuevoNivel){
         peligrosidad = nuevoNivel
     }
+
+    method sufrirCambios(){
+        peso = peso + 15
+    }
 }
 
 object embalajeDeSeguridad {
@@ -103,4 +130,9 @@ object embalajeDeSeguridad {
     method envolver_(algo){
         envuelto = algo.peso()
     }
+
+    method sufrirCambios(){
+        
+    }
+
 }
